@@ -1,8 +1,8 @@
-import express from 'express';
-import  React  from "react";
-import ReactDOMServer from 'react-dom/server'
-import App from './src/App';
-import * as functions from 'firebase-functions';
+import express from "express";
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+import App from "./src/App";
+import * as functions from "firebase-functions";
 
 const path = require("path");
 const fs = require("fs");
@@ -12,23 +12,18 @@ const app = express();
 
 // app.use(express.static(BUILD_DIR))
 
-app.get('**',(req, res) => {
-    console.log("working")
-
-      const html = ReactDOMServer.renderToString(<App/>);
-      console.log(html)
-      const filePath = path.resolve(__dirname, 'index.html');
-
-      let index =  fs.readFileSync(filePath, 'utf8');
-      index = index.toString()
-      console.log(index)
-      const finalHtml = index.replace( "<!---- ::APP:: ---->", html) 
-      console.log(finalHtml)
-      // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
-      res.send(finalHtml);   
-      console.log("send")
-    
-  })
+app.get("**", (req, res) => {
+  const html = ReactDOMServer.renderToString(
+    <App display={"this is a prop from server"} />
+  );
+  const filePath = path.resolve(__dirname, "hosting", "index.html");
+  let index = fs.readFileSync(filePath, "utf8");
+  index = index.toString();
+  console.log(index);
+  const finalHtml = index.replace("<!---- ::APP:: ---->", html);
+  // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
+  res.send(finalHtml);
+});
 export let ssrapp = functions.https.onRequest(app);
 
 // const router = express.Router();

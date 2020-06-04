@@ -30,21 +30,18 @@ var fs = require("fs");
 var app = (0, _express.default)(); // var BUILD_DIR = path.join(__dirname, 'build')
 // app.use(express.static(BUILD_DIR))
 
-app.get('**', function (req, res) {
-  console.log("working");
+app.get("**", function (req, res) {
+  var html = _server.default.renderToString( /*#__PURE__*/_react.default.createElement(_App.default, {
+    display: "this is a prop from server"
+  }));
 
-  var html = _server.default.renderToString( /*#__PURE__*/_react.default.createElement(_App.default, null));
-
-  console.log(html);
-  var filePath = path.resolve(__dirname, 'index.html');
-  var index = fs.readFileSync(filePath, 'utf8');
+  var filePath = path.resolve(__dirname, "hosting", "index.html");
+  var index = fs.readFileSync(filePath, "utf8");
   index = index.toString();
   console.log(index);
-  var finalHtml = index.replace("<!---- ::APP:: ---->", html);
-  console.log(finalHtml); // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
+  var finalHtml = index.replace("<!---- ::APP:: ---->", html); // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
 
   res.send(finalHtml);
-  console.log("send");
 });
 var ssrapp = functions.https.onRequest(app); // const router = express.Router();
 // router.use('**', (req, res) => {

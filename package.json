@@ -15,9 +15,9 @@
         "react-scripts": "3.4.1"
     },
     "scripts": {
+        "build": "react-scripts build && cp build/index.html functions/hosting/",
         "babel": "babel index.js --out-dir functions && babel src --out-dir functions/src",
         "start": "react-scripts start",
-        "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
