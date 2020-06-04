@@ -10,6 +10,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 console.log("here");
 
-_reactDom.default.hydrate( /*#__PURE__*/_react.default.createElement(_App.default, {
-  data: "aheofihofia"
-}), document.getElementById('root'));
+_reactDom.default.hydrate( /*#__PURE__*/_react.default.createElement(_App.default, null), document.getElementById('root'));

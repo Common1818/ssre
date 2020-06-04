@@ -7,26 +7,27 @@ import * as functions from 'firebase-functions';
 const path = require("path");
 const fs = require("fs");
 
-
 const app = express();
+// var BUILD_DIR = path.join(__dirname, 'build')
+
+// app.use(express.static(BUILD_DIR))
 
 app.get('**',(req, res) => {
     console.log("working")
-    // Loadable.preloadAll().then(()=>{
-      const html = ReactDOMServer.renderToString(<App data="Arrrrar"/>);
-      // console.log(html)
+
+      const html = ReactDOMServer.renderToString(<App/>);
+      console.log(html)
       const filePath = path.resolve(__dirname, 'index.html');
+
       let index =  fs.readFileSync(filePath, 'utf8');
-      // console.log(index.toString())
-       index = index.toString()
-      const finalHtml = index.replace(
-                      "<!---- ::APP:: ---->",
-                      html)
-      // console.log(finalHtml)                
+      index = index.toString()
+      console.log(index)
+      const finalHtml = index.replace( "<!---- ::APP:: ---->", html) 
+      console.log(finalHtml)
       // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
       res.send(finalHtml);   
       console.log("send")
-    // })
+    
   })
 export let ssrapp = functions.https.onRequest(app);
 

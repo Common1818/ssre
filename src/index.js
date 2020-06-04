@@ -4,7 +4,7 @@ import App from './App';
 console.log("here")
 
 ReactDOM.hydrate(
-    <App data="aheofihofia"/>,
+    <App/>,
   document.getElementById('root')
 );
 

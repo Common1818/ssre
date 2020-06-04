@@ -27,24 +27,24 @@ var path = require("path");
 
 var fs = require("fs");
 
-var app = (0, _express.default)();
-app.get('**', function (req, res) {
-  console.log("working"); // Loadable.preloadAll().then(()=>{
+var app = (0, _express.default)(); // var BUILD_DIR = path.join(__dirname, 'build')
+// app.use(express.static(BUILD_DIR))
 
-  var html = _server.default.renderToString( /*#__PURE__*/_react.default.createElement(_App.default, {
-    data: "Arrrrar"
-  }));
+app.get('**', function (req, res) {
+  console.log("working");
+
+  var html = _server.default.renderToString( /*#__PURE__*/_react.default.createElement(_App.default, null));
 
   console.log(html);
   var filePath = path.resolve(__dirname, 'index.html');
   var index = fs.readFileSync(filePath, 'utf8');
-  console.log(index.toString());
   index = index.toString();
+  console.log(index);
   var finalHtml = index.replace("<!---- ::APP:: ---->", html);
   console.log(finalHtml); // res.set('Cache-Control', 'public, max-age=600, s-maxage=1200')
 
   res.send(finalHtml);
-  console.log("send"); // })
+  console.log("send");
 });
 var ssrapp = functions.https.onRequest(app); // const router = express.Router();
 // router.use('**', (req, res) => {
